@@ -11,6 +11,10 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+print ('===== sys.path / PYTHONPATH =====')
+for k in sorted(os.environ.keys()):
+    v = os.environ[k]
+    print ('%-30s %s' % (k,v[:70]))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ShopifyDevChallenge.settings')
 
 application = get_wsgi_application()
