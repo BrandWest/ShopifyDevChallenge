@@ -33,7 +33,6 @@ def login_attempt(request):
     if user is not None:
         login(request, user)
         return
-
     else:
         return
 def logout_view(request):
@@ -67,6 +66,7 @@ def ImageUploadView(request):
         if form.is_valid():
             form.save(commit=False)
             form.current_user = request.user
+            print(request.user)
             form.save()
             image_object = form.instance
             return render(request,"image_repo.html", {"image_object":image_object, "current_user":request.user})
