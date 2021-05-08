@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
+from django.contrib.auth.decorators import login_required
 
 #Custome Views
 from shop.forms import UserProfile, ImageForm
@@ -21,6 +22,7 @@ class UserSignupView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'commons/signup.html'
 
+@login_required
 def ImageRepoView(request):
     image = Images.objects.all()
     return render(request, 'image_repo.html', {'image' : image})
@@ -60,6 +62,7 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 #User upload view
+@login_required
 def ImageUploadView(request):
     if request.method == "POST":
         form=ImageForm(data=request.POST, files=request.FILES)
