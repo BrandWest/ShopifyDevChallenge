@@ -2,15 +2,18 @@ from django.contrib import admin
 #Custom admin registers
 from .models import Images, PostImage
 
-
-class ImageAdmin(admin.StackedInline):
-    model = PostImage
-
 @admin.register(Images)
-class AdminImage(admin.ModelAdmin):
-    inlines = [ImageAdmin]
-    class Meta:
-            model = Images
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['images', 'caption', 'current_user']
+    list_filter = ['current_user']
+    search_fields = ['current_user']
+    model = Images
+
+# @admin.register(Images)
+# class AdminImage(admin.ModelAdmin):
+#     inlines = [ImageAdmin]
+#     class Meta:
+#             model = Images
 
 @admin.register(PostImage)
 class AdminPostImage(admin.ModelAdmin):

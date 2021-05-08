@@ -21,18 +21,17 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 #custom views
-from shop import views
-from shop.views import ImageRepoView, UserLoginView, UserSignupView, ImageUploadView
+from shop.views import ImageRepoView, UserLoginView, UserSignupView, ImageUploadView, ImageDeletionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('login/', UserLoginView.as_view(), name="login"),
     path('commons/signup/', UserSignupView.as_view(), name='signup'),
-    path('', ImageUploadView, name='image_repo'),
     path('home', TemplateView.as_view(template_name='home.html'), name='home'),
-    # path('', include('shop.urls')),
     path('commons/repo', ImageRepoView, name="repo"),
+    path('image_repo/', ImageUploadView, name='image_repo'),
+    path('', ImageDeletionView, name='delete'),
 ]
 
 if settings.DEBUG:
