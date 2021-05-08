@@ -4,19 +4,14 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-# class User(auth.models.User, auth.models.PermissionsMixin):
-#     """ this is account User model"""
-#
-#     def __str__(self):
-#         return "@{}".format(self.username)
-
+#Custom Forms
+from .models import Images
 
 # Sign Up Form
-class SignUpForm(UserCreationForm):
+class UserProfile(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional')
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional')
     email = forms.EmailField(max_length=254, help_text='Enter a valid email address')
-
     class Meta:
         model = User
         fields = [
@@ -27,3 +22,10 @@ class SignUpForm(UserCreationForm):
             'password1',
             'password2',
             ]
+
+
+#Image upload form
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Images
+        fields = ('caption', 'images', 'current_user')

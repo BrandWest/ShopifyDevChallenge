@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ShopifyDevChallenge.iml" filepath="$PROJECT_DIR$/.idea/ShopifyDevChallenge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../StockPhotos/.idea/StockPhotos.iml" filepath="$PROJECT_DIR$/../StockPhotos/.idea/StockPhotos.iml" />
     </modules>
   </component>
 </project>

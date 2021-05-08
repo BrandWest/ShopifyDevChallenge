@@ -14,18 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from PyQt5.QtCore.QUrl import url
+from django.conf import settings
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from django.views.generic.base import TemplateView
+from django.conf.urls.static import static
+#custom views
 from shop import views
-from django.contrib.auth import views as auth_views
-from shop.views import UserLoginView, UserSignupView
+from shop.views import ImageRepoView, UserLoginView, UserSignupView, ImageUploadView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('login/', UserLoginView.as_view(), name="login"),
     path('commons/signup/', UserSignupView.as_view(), name='signup'),
+    path('', ImageUploadView, name='image_repo'),
+    path('home', TemplateView.as_view(template_name='home.html'), name='home'),
+    # path('', include('shop.urls')),
+    path('commons/repo', ImageRepoView, name="repo"),
 ]
-#
+
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
