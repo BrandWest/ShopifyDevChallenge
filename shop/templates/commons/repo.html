@@ -1,32 +1,22 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <h1>Image Upload</h1>
-    <div class="container">
-        <form action="" method="post"  autocomplete="off" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form.as_p}} <br>
-            <button type="submit" class="btn btn-lg btn-success">Upload</button>
-        </form>
-
-        {% if image_object %}
-            <h3>Successfully uploaded : {{image_object.caption}}</h3>
-            <img src="{{ image_object.images.url}}"  height="50%" width="50%"  alt="image" class="img-thumbnail"  >
-        {% endif %}
-        {% for image in all_images %}
-            {% if forloop.first %}<div class="row ">{% endif %}
-                <div class="col-lg-4 col-md-4 col-12" >
-                    <div class="text-center mt-2">
-                        <img src="{{image.images.url}}"  height="50%" width="50%" class="img-thumbnail" alt="...">
-                        <p style="text-align: center" >Description: {{image.caption}}<br>Uploaded by: {{image.current_user}}</p>
-                        <form action="{% url 'image_repo' image.id %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" value="Delete">
-                        </form>
-                    </div>
-                </div>
-            {% if forloop.counter|divisibleby:3 %}</div><div class=row>{% endif %}
-
-            {% if forloop.last %}</div>{% endif %}
-        {% endfor %}
+<div class="row row-cols-1 row-cols-md-2">
+    {% for post in posts %}
+    <div class="col mb-4">
+        <div class="card">
+            <div class="view overlay">
+                <img class="card-img-top" src="{{images.image.url}}" alt="">
+                <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{post.title}}</h4>
+                <p class="card-text">{{post.description}}</p>
+            </div>
+        </div>
     </div>
+    {% endfor %}
+</div>
 {% endblock %}

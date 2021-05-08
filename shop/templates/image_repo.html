@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+<!--{% load static %}-->
     <h1>Image Upload</h1>
     <div class="container">
-        <form action="" method="post"  autocomplete="off" enctype="multipart/form-data">
+
+        <form action="." method="post"  enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}} <br>
+            {{form.as_p}}
             <button type="submit" class="btn btn-lg btn-success">Upload</button>
         </form>
 
@@ -12,21 +14,19 @@
             <h3>Successfully uploaded : {{image_object.caption}}</h3>
             <img src="{{ image_object.images.url}}"  height="50%" width="50%"  alt="image" class="img-thumbnail"  >
         {% endif %}
+        <hr>
+
         {% for image in all_images %}
             {% if forloop.first %}<div class="row ">{% endif %}
                 <div class="col-lg-4 col-md-4 col-12" >
                     <div class="text-center mt-2">
-                        <img src="{{image.images.url}}"  height="50%" width="50%" class="img-thumbnail" alt="{{image.images.url}}">
-                        <p style="text-align: center" >Description: {{image.caption}}<br>Uploaded by: {{image.current_user}}</p>
-                        <form action="{% url 'delete_image' image.id %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" value="Delete">
-                        </form>
+                        <img src="{{image.images.url}}"  height="20%" width="20%" class="img-thumbnail" alt="...">
+                        <h2 class="text-center" >{{image.caption}}</h2></div>
+                        <h2 class="text-center" >{{image.current_user}}</h2></div>
+                        </div>
+                        {% if forloop.counter|divisibleby:3 %}<div class=row>{% endif %}
                     </div>
-                </div>
-            {% if forloop.counter|divisibleby:3 %}</div><div class=row>{% endif %}
-
-            {% if forloop.last %}</div>{% endif %}
+                {% if forloop.last %}</div>{% endif %}
         {% endfor %}
     </div>
 {% endblock %}

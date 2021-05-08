@@ -125,8 +125,13 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,  'shop/static')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'/static/css'),
+    os.path.join(BASE_DIR,'/static'),
 ]
+
+#Location of the Image Repo
+MEDIA_URL = 'shop/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/static/media/')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
