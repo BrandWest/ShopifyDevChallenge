@@ -4,7 +4,7 @@ from django.db import models
 class Images(models.Model):
     caption = models.CharField(max_length=250)
     images = models.ImageField(upload_to=".")
-    current_user = models.ForeignKey(User, null=True, blank=True)
+    current_user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.caption
