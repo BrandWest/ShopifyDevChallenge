@@ -34,9 +34,10 @@ def login_attempt(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return
+        # return redirect('home')
     else:
-        return
+        return redirect('home')
+
 def logout_view(request):
     logout(request)
 
@@ -47,15 +48,10 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
-            # load the profile instance created by the signal
             user.save()
             raw_password = form.cleaned_data.get('password1')
-
-            # login user after signing up
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-
-            # redirect user to home page
             return redirect('home')
     else:
         form = UserProfile()
@@ -78,3 +74,12 @@ def ImageUploadView(request):
     all_images=Images.objects.all()
     return render(request, "image_repo.html", {"all_images":all_images, "form":form,  "current_user":request.user})
 
+@login_required
+def ImageDeletionView(request, pk):
+    if request.method == 'POST':
+        image = Images.objects.get(pk=pk)
+        if request.user != image.user:
+            return redirect(request, "image_repo.html")
+        else:
+            image.delete()
+    return redirect('image_repo.html')
