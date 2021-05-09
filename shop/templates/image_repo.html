@@ -16,7 +16,7 @@
             {% if forloop.first %}<div class="row ">{% endif %}
                 <div class="col-lg-4 col-md-4 col-12" >
                     <div class="text-center mt-2">
-                        <img src="{{image.images.url}}"  height="50%" width="50%" class="img-thumbnail" alt="...">
+                        <img src="{{image.images.url}}"  height="50%" width="50%" class="img-thumbnail" alt="{{image.images.url}}">
                         <p style="text-align: center" >Description: {{image.caption}}<br>Uploaded by: {{image.current_user}}</p>
                         <form action="{% url 'delete_image' image.id %}" method="post">
                             {% csrf_token %}
