@@ -101,6 +101,9 @@ def ImageDeletionView(request, pk):
             return HttpResponse(render(request, "image_repo.html", {"all_images": all_images}))
         else:
             print( "User = User" )
-            Images.objects.filter(id=imageID).delete()
+            Images.objects.filter(id=pk).delete()
+    else:
+        all_images = Images.objects.all()
+        return HttpResponse(render(request, "image_repo.html", {"all_images": all_images}))
     all_images = Images.objects.all()
     return HttpResponse(render(request, "image_repo.html", {"all_images": all_images}))
