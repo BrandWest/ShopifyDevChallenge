@@ -9,12 +9,6 @@ class ImageAdmin(admin.ModelAdmin):
     search_fields = ['current_user']
     model = Images
 
-# @admin.register(Images)
-# class AdminImage(admin.ModelAdmin):
-#     inlines = [ImageAdmin]
-#     class Meta:
-#             model = Images
-
 @admin.register(PostImage)
 class AdminPostImage(admin.ModelAdmin):
     pass

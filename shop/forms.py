@@ -26,6 +26,7 @@ class UserProfile(UserCreationForm):
 
 #Image upload form
 class ImageForm(forms.ModelForm):
-    class Meta:
+    images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    class Meta (forms.ModelForm):
         model = Images
-        fields = ('caption', 'images', 'current_user')
+        fields = ['id','caption', 'images']

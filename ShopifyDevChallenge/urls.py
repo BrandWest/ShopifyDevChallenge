@@ -15,9 +15,10 @@ Including another URLconf
 """
 # from PyQt5.QtCore.QUrl import url
 from django.conf import settings
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 #custom views
@@ -28,10 +29,10 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('login/', UserLoginView.as_view(), name="login"),
     path('commons/signup/', UserSignupView.as_view(), name='signup'),
-    path('home', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('commons/repo', ImageRepoView, name="repo"),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('commons/repo/', ImageRepoView, name="repo"),
     path('image_repo/', ImageUploadView, name='image_repo'),
-    path('', ImageDeletionView, name='delete'),
+    re_path(r'^delete_image/(?P<pk>\d+)/$', ImageDeletionView, name='delete_image'),
 ]
 
 if settings.DEBUG:
