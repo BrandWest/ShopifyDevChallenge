@@ -1,0 +1,141 @@
+Tests to run on the server once server is running (README.md)
+
+Open webpage:
+	1. Open web browser of your choice (brave, google, firefox, etc)
+	2. In the url use: http://127.0.0.1:8000
+
+Note: Wherever there are open and closed bracket "( )", they are to be omitted in inputs
+
+Sign up a user:
+	Test 1 - Sign-up a legitimate user:
+		1. Click on (Signup) in the upper left from http://127.0.0.1
+		2. Enter:
+			- Username
+			- First name
+			- Last name
+			- Password following restrictions
+			- Re-enter the password
+		3. Click Sign up
+	Result: Success
+
+	Test 2 - Sign-up with missing information:
+		1. Click on (Signup) in the upper left from http://127.0.0.1
+		2. Leave each of the values empty
+			- Username
+			- First name
+			- Last name
+			- Password following restrictions
+			- Re-enter the password
+		3. Click Sign up
+	Result: Failed, fill in info
+
+	Test 3 - Sign-up with mismatched passwords 
+		1. Click on (Signup) in the upper left from http://127.0.0.1
+		2. Leave each of the values empty
+			- Username
+			- First name
+			- Last name
+			- Password following restrictions
+			- Enter different password
+		3. Click Sign up
+	Result: Failed, The two password fields didn't match.
+
+	Test 4 - Sign-up with garbage input
+		1. Click on (Signup) in the upper left from http://127.0.0.1
+		2. Leave each of the values empty
+			- Username use invalid symbols: `|
+			- First name
+			- Last name
+			- Password following restrictions
+			- Re-enter the password
+		3. Click Sign up
+	Result: Failed, Enter a valid username. This value may contain only letters, numbers, and @/./+/-/_ characters.
+
+
+
+Login
+	Test 1 - Login with legitimate user
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of created user (caboose)
+		3. Enter password of created user (1)
+		4. Click (login)
+	Result: Success, now logged in as caboose on homepage
+
+	Test 2 - Log in with Failed user
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of created user (caboosE)
+		3. Enter password of created user (1)
+		4. Click (login)
+	Result: Failed, Your username and password didn't match. Please try again.
+
+	Test 3 - Attempt SQL Injection
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter into the Username textbox (" or ""=")
+		3. Enter into the Password textbox (" or ""=")
+	Result: Failed, Your username and password didn't match. Please try again.
+
+Upload Images
+	Test 1 - Legitimate file upload
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of created user (caboose)
+		3. Enter password of created user (1)
+		4. Click (login)
+		5. Click (upload Images)
+		6. Write into the Caption textbox: (This is a test upload)
+		7. Choose a file from (ShopifyDevChallenge/StockPhotos)
+		8. Click (Upload)
+		9. Click (Upload)
+	Result: Success - Upload is in the list.
+
+	Test 2 - Upload a illigitimate file
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of created user (caboose)
+		3. Enter password of created user (1)
+		4. Click (login)
+		5. Click (upload Images)
+		6. Write into the Caption textbox: (This is a test upload)
+		7. Choose a file from (ShopifyDevChallenge/StockPhotos/test.txt)
+		8. Click (Upload)
+		9. Click (Upload)
+	Result: Failed - Upload is not in the list.
+
+	Test 3 - Upload multiple files
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of created user (caboose)
+		3. Enter password of created user (1)
+		4. Click (login)
+		5. Click (upload Images)
+		6. Write into the Caption textbox: (This is a test upload)
+		7. Choose multiple files from (ShopifyDevChallenge/StockPhotos)
+		8. Click (Upload)
+		9. Click (Upload)
+	Result: Success - Uploads are in the list.
+
+	Test 4 - Upload with no Caption
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of created user (caboose)
+		3. Enter password of created user (1)
+		4. Click (login)
+		5. Click (upload Images)
+		6. Choose multiple files from (ShopifyDevChallenge/StockPhotos)
+		7. Click (Upload)
+		8. Click (Upload)
+	Result: Failure - Unable to upload without caption. This is a required field.
+
+	Test 5 - Delete single upload as uplaoded user
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of created user (caboose)
+		3. Enter password of created user (1)
+		4. Click (login)
+		5. Click (upload Images)
+		6. Find a file (Uploaded by: caboose) and click (Delete)
+	Result: Success - Image is removed from the webpage
+
+	Test 6 - Delete single upload from a user who has not uploaded the file.
+		1. Click on (Login) in the upper left from http://127.0.0.1
+		2. Enter Username of the created user from Sign up a user Test 1 
+		3. Enter password of the created user from Sign up a user Test 1 
+		4. Click (login)
+		5. Click (upload Images)
+		6. Find a file (Uploaded by: caboose) and click (Delete)
+	Result: Failure - User is unable to delete an image owned by another user.
