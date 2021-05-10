@@ -24,3 +24,7 @@ Clone the repo:
 Run the server:
   cd ShopifyDevChallenge/
   python3 manage.py runserver #this will launch the manage server
+
+
+# Tests
+Use the test.txt file to follow test situations for the program inputs.
