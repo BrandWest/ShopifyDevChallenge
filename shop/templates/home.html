@@ -2,19 +2,15 @@
 
 {% block title %}Home Page{% endblock title %}
 
-{% block content %} 
+{% block content %}
+    <li><a href="{% url 'signup'%}?next={{request.path}}">Signup</a></li>
+    <li><a href="{% url 'password_reset'%}">Forgot Password?</a></li>
     <h2>Home</h2>
     {% if user.is_authenticated %}
         <p>{{user.username}}, you are welcome on the Home Page</p>
         <p>Your name is - {{user.first_name}} {{user.last_name}}</p>
         <p>Your email is - {{user.email}}</p>
         <a href="{% url 'image_repo' %}">Upload Images</a>
-        <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <br>
-        <a href="{% url 'password_reset' %}">Forgot Password</a>
-        <br>
-        <a href="{% url 'signup' %}">Sign Up</a>
+
     {% endif %}
 {% endblock content %}
